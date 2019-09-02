@@ -29,7 +29,7 @@ import time
 
 from users import UserLevel
 from util import string_util, file_handler, thread_task
-from apis import Youtube, TinychatApi, JumpinChatApi, WikiPedia, lastfm, locals_, other
+from apis import Youtube, TinychatApi, JumpinChatApi, WikiPedia, lastfm, locals_, other, tokes
 from lc import LiveCount
 from vote import Vote
 
@@ -43,6 +43,7 @@ class CommandHandler:
         self._msg = msg
         self._conf = config
         self._pool = pool
+        self._tokes = tokes.Tokes(self, self._conf)
 
         self._playlist = bot.playlist
 
@@ -234,6 +235,8 @@ class CommandHandler:
 
             elif cmd == 'cv':
                 self.do_vote_cancel()  # new
+            elif cmd == 'tokes':
+                self._tokes.tokessession(cmd_arg)
 
         if self._user.level <= UserLevel.BOT_OP:
 
